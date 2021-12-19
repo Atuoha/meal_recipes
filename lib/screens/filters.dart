@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app/components/drawer.dart';
+import 'package:meal_app/components/drawer_component.dart';
 import 'package:meal_app/components/list_tile_component.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -22,7 +22,7 @@ class _FilterScreenState extends State<FilterScreen> {
         isLactoseCheck = value;
       } else if (type == 'isVegatarianCheck') {
         isVegatarianCheck = value;
-      }else{
+      } else {
         isGlutenCheck = value;
       }
     });
@@ -37,13 +37,19 @@ class _FilterScreenState extends State<FilterScreen> {
         fontFamily: 'QuickSand',
       ),
       home: Scaffold(
-        drawer: DrawerComponent(),
-        appBar: AppBar(title: const Text('Your Filters'), actions: [
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: () => null,
-          ),
-        ]),
+        appBar: AppBar(
+            leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            title: const Text('Your Filters'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: () => null,
+              ),
+            ]),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(

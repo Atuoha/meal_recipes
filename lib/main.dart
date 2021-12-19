@@ -2,7 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'components/bottom_navigationbar.dart';
-import 'components/drawer.dart';
+import 'components/drawer_component.dart';
+import 'components/category_grid_view.dart';
+import 'screens/cateory_meal.dart';
+import 'screens/home.dart';
+import 'screens/single_meal.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,17 +20,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         fontFamily: 'Quicksand',
       ),
-      home: Scaffold(
-        bottomNavigationBar: BottomNavigationBarComponent(),
-        drawer: DrawerComponent(),
-        appBar: AppBar(
-          // centerTitle: true,
-          title: const Text('Meal Categories'),
-        ),
-        body: const Center(
-          child: Text('Body of Content'),
-        ),
-      ),
+      home:HomePage(),
+      routes: {
+        CategoryMeal.routeName: (context) => CategoryMeal(),
+        SingleMeal.routeName: (context) => SingleMeal()
+      },
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/screens/filters.dart';
 
+import 'category_grid_view.dart';
+
 // ignore: use_key_in_widget_constructors
 class DrawerComponent extends StatelessWidget {
   @override
@@ -19,7 +21,7 @@ class DrawerComponent extends StatelessWidget {
               ),
               child: Center(
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Icon(
                         Icons.restaurant,
@@ -28,7 +30,7 @@ class DrawerComponent extends StatelessWidget {
                       ),
                       SizedBox(width: 10),
                       Text(
-                        'Meals and Recipe',
+                        'Meal and Recipe',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 26,
@@ -52,52 +54,56 @@ class DrawerComponent extends StatelessWidget {
             ),
           ),
           ListTile(
-              title: const Text(
-                'Meals',
-                style: TextStyle(
-                  fontSize: 17,
-                ),
+            title: const Text(
+              'Meals',
+              style: TextStyle(
+                fontSize: 17,
               ),
-              leading: const Icon(
-                Icons.restaurant,
-                color: Colors.purple,
-              ),
-              onTap: () {
-                print('dd');
-              }),
+            ),
+            leading: const Icon(
+              Icons.restaurant,
+              color: Colors.purple,
+            ),
+            onTap: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => GridComponent()));
+            },
+          ),
           ListTile(
-              title: const Text(
-                'Filters',
-                style: TextStyle(
-                  fontSize: 17,
+            title: const Text(
+              'Filters',
+              style: TextStyle(
+                fontSize: 17,
+              ),
+            ),
+            leading: const Icon(
+              Icons.settings,
+              color: Colors.purple,
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FilterScreen(),
                 ),
-              ),
-              leading: const Icon(
-                Icons.settings,
-                color: Colors.purple,
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FilterScreen(),
-                  ),
-                );
-              }),
+              );
+            },
+          ),
           ListTile(
-              title: const Text(
-                'Favorites',
-                style: TextStyle(
-                  fontSize: 17,
-                ),
+            title: const Text(
+              'Favorites',
+              style: TextStyle(
+                fontSize: 17,
               ),
-              leading: const Icon(
-                Icons.star,
-                color: Colors.purple,
-              ),
-              onTap: () {
-                print('ellll');
-              }),
+            ),
+            leading: const Icon(
+              Icons.star,
+              color: Colors.purple,
+            ),
+            onTap: () {
+              print('ellll');
+            },
+          ),
         ],
       ),
     );
