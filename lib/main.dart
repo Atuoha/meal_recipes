@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'components/bottom_navigationbar.dart';
-import 'components/drawer_component.dart';
-import 'components/category_grid_view.dart';
 import 'screens/cateory_meal.dart';
 import 'screens/home.dart';
 import 'screens/single_meal.dart';
@@ -20,10 +17,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         fontFamily: 'Quicksand',
       ),
-      home:HomePage(),
+      home: HomePage(),
       routes: {
         CategoryMeal.routeName: (context) => CategoryMeal(),
         SingleMeal.routeName: (context) => SingleMeal()
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (context) => CategoryMeal());
       },
     );
   }
