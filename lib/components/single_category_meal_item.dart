@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:meal_app/models/meal.dart';
 
 class SingleCatCardItem extends StatelessWidget {
   final String title;
@@ -9,6 +8,7 @@ class SingleCatCardItem extends StatelessWidget {
   final String cost;
   final String complexity;
   final String image;
+  // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
   SingleCatCardItem({
     required this.image,
     required this.title,
@@ -20,7 +20,6 @@ class SingleCatCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       elevation: 5,
       margin: EdgeInsets.all(10),
       child: Column(

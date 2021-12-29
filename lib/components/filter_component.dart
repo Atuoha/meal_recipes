@@ -24,10 +24,10 @@ class ListTileComponent extends StatelessWidget {
         ),
       ),
       subtitle: Text(subtitle),
-      leading: const Icon(Icons.build_circle, color: Colors.purple),
+      leading:  Icon(Icons.build_circle, color: Theme.of(context).primaryColor),
       trailing: Switch(
-          activeTrackColor: Colors.purple,
-          inactiveThumbColor: Colors.purple,
+          activeTrackColor: Theme.of(context).primaryColor,
+          inactiveThumbColor: Theme.of(context).primaryColor,
           value: isCheck,
           onChanged: (value) {
             toggleCheck(value, type);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_app/models/dummy_data.dart';
 import 'single_category.dart';
 
+// ignore: use_key_in_widget_constructors, must_be_immutable
 class GridComponent extends StatelessWidget {
   List<Map<String, Object>> categories = [];
   @override

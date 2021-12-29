@@ -3,6 +3,7 @@ import 'package:meal_app/components/single_category_meal_item.dart';
 import 'package:meal_app/models/dummy_data.dart';
 import 'package:meal_app/screens/single_meal.dart';
 
+// ignore: use_key_in_widget_constructors
 class CategoryMeal extends StatelessWidget {
   static const routeName = '/category-meals';
 
@@ -18,32 +19,40 @@ class CategoryMeal extends StatelessWidget {
 
     return Scaffold(
       // drawer: DrawerComponent(),
-      appBar: AppBar(title: Text(title), actions: [
-        IconButton(
-          icon: const Icon(Icons.restaurant),
-          onPressed: () => {},
-        ),
-      ]),
+      appBar: AppBar(
+        title: Text(title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.restaurant),
+            onPressed: () => {},
+          ),
+        ],
+      ),
       body: ListView.builder(
-          itemCount: categoryMeals.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () {
-                Navigator.pushNamed(context, SingleMeal.routeName, arguments: {
+        itemCount: categoryMeals.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                SingleMeal.routeName,
+                arguments: {
                   'id': categoryMeals[index].id,
                   'title': categoryMeals[index].title,
-                });
-              },
-              child: SingleCatCardItem(
-                title: categoryMeals[index].title,
-                time: '${categoryMeals[index].duration} Min',
-                cost: categoryMeals[index].costText,
-                complexity: categoryMeals[index].complexityText,
-                image: categoryMeals[index].image,
-              ),
-            );
-          }),
+                },
+              );
+            },
+            child: SingleCatCardItem(
+              title: categoryMeals[index].title,
+              time: '${categoryMeals[index].duration} Min',
+              cost: categoryMeals[index].costText,
+              complexity: categoryMeals[index].complexityText,
+              image: categoryMeals[index].image,
+            ),
+          );
+        },
+      ),
     );
   }
 }

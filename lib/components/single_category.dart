@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app/screens/cateory_meal.dart';
 
 class SingleCategory extends StatelessWidget {
   final String title;
   final String id;
   final AssetImage image;
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   SingleCategory({
     required this.title,
     required this.id,
@@ -24,38 +24,35 @@ class SingleCategory extends StatelessWidget {
         child: Card(
           color: Colors.transparent,
           elevation: 5,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+          child: Column(children: [
+            Expanded(
+              flex: 3,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
+                child: Image(
+                  image: image,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            child: Column(children: [
-              Expanded(
-                flex: 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: image,
-                    ),
-                  ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                color: Colors.white,
+                child: Center(
+                  child: Text(title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                ),
-              ),
-            ]),
-          ),
+            ),
+          ]),
         ),
       ),
     );

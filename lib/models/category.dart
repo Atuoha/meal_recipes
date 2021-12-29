@@ -5,5 +5,9 @@ class Category {
   final String title;
   final AssetImage image;
 
-  const Category({required this.id, required this.title, required this.image});
+  const Category({
+    required this.id,
+    required this.title,
+    required this.image,
+  });
 }

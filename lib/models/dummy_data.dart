@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_app/models/category.dart';
 import 'package:meal_app/models/meal.dart';
 
+// ignore: constant_identifier_names
 const Categories = [
   Category(
     id: 'c1',
@@ -55,6 +56,9 @@ const Categories = [
   ),
 ];
 
+List<Meal> favoriteMeals = [];
+
+// ignore: constant_identifier_names
 const Meals = [
   Meal(
     id: 'm1',
