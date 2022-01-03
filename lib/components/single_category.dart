@@ -22,37 +22,40 @@ class SingleCategory extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
-          color: Colors.transparent,
           elevation: 5,
-          child: Column(children: [
-            Expanded(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-                child: Image(
-                  image: image,
-                  fit: BoxFit.cover,
+          child: Container(
+             decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+        ),
+            child: Column(children: [
+              Expanded(
+                flex: 3,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                  child: Image(
+                    image: image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.white,
+              Expanded(
+                flex: 1,
                 child: Center(
                   child: Text(title,
                       style: const TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                 ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );

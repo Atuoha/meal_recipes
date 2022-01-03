@@ -71,6 +71,9 @@ flutter:
     - assets/imgs/3.jpg
     - assets/imgs/2.jpg
     - assets/imgs/4.jpg
+    - assets/imgs/x.jpeg
+    - assets/imgs/y.jpeg
+    - assets/imgs/z.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

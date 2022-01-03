@@ -3,42 +3,54 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/theme.dart';
 import 'package:meal_app/screens/favorite_meals.dart';
+import 'package:meal_app/screens/filters.dart';
 import 'package:meal_app/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'drawer_component.dart';
 
 // ignore: use_key_in_widget_constructors
 class NavigationBarComponent extends StatelessWidget {
- 
-  final void Function(bool) toggleTheme;
+  final void Function() toggleTheme;
   // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
   NavigationBarComponent({required this.toggleTheme});
 
- 
-
   @override
   Widget build(BuildContext context) {
+    var theme = Provider.of<ThemeDataa>(context, listen: false).darkTheme;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        // backgroundColor: darkTheme ? Colors.black: Colors.purple,
+        // backgroundColor: Colors.black54,
         drawer: DrawerComponent(),
         appBar: AppBar(
           title: const Text('Meal and Recipes'),
           actions: [
-            const Icon(Icons.restaurant),
-            Switch(
-              activeColor: Colors.brown,
-              value: Provider.of<ThemeDataa>(context,listen:false).darkTheme,
-              onChanged: (value) {
-                toggleTheme(value);
+            IconButton(
+              onPressed: () => {
+                Navigator.of(context).pushNamed(FilterScreen.routeName),
               },
+              icon: const Icon(Icons.restaurant),
             ),
+            IconButton(
+              icon: theme
+                  ? const Icon(Icons.dark_mode)
+                  : const Icon(Icons.light_mode),
+              onPressed: toggleTheme,
+              splashRadius: 4400,
+            ),
+            // Switch(
+            //   activeColor: Colors.black,
+            //   value: Provider.of<ThemeDataa>(context,listen:false).darkTheme,
+            //   onChanged: (value) {
+            //     toggleTheme();
+            //   },
+            // ),
           ],
-          bottom: const TabBar(
-            labelColor: Colors.yellow,
+          bottom: TabBar(
+            indicatorColor: theme ? Colors.redAccent[200] : Colors.yellow,
+            labelColor: theme ? Colors.redAccent[200] : Colors.yellow,
             unselectedLabelColor: Colors.white,
-            tabs: [
+            tabs: const [
               Tab(icon: Icon(Icons.category), text: 'Category'),
               Tab(icon: Icon(Icons.star), text: 'Favorities'),
             ],

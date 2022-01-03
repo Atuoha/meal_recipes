@@ -52,18 +52,19 @@ class _SingleMealState extends State<SingleMeal> {
     }
 
     void toggleFavoriteMeal(Meal meal) {
-      if (isFavorite) {
-        setState(
-          () {
+      switch (isFavorite) {
+        case true:
+          setState(() {
             favoriteMeals.remove(meal);
-          },
-        );
-      } else {
-        setState(
-          () {
+          });
+          break;
+        case false:
+          setState(() {
             favoriteMeals.add(meal);
-          },
-        );
+          });
+          break;
+
+        default:
       }
     }
 
@@ -86,6 +87,14 @@ class _SingleMealState extends State<SingleMeal> {
     }
 
     return Scaffold(
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+          child: const Icon(Icons.delete_forever),
+          onPressed: () {
+            Navigator.of(context).pop(id);
+          }),
       appBar: AppBar(
         title: Text(title),
         actions: [

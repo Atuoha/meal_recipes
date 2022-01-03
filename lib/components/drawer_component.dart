@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app/screens/favorite_meals.dart';
+import 'package:meal_app/main.dart';
 import 'package:meal_app/screens/filters.dart';
-import 'package:meal_app/screens/home.dart';
 import 'package:provider/provider.dart';
 import '../models/theme.dart';
 
-import 'navigation_bar.dart';
 
 // ignore: use_key_in_widget_constructors
 class DrawerComponent extends StatelessWidget {
@@ -14,25 +12,20 @@ class DrawerComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    toggleTheme(value) {
-      Provider.of<ThemeDataa>(context,listen:false).toggleDarkTheme();
-  }
-
-    Widget buildListTile(String title, IconData icon, Widget widget) {
+    Widget buildListTile(String title, IconData icon, String name) {
       return ListTile(
         title: Text(
           title,
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 18,
+            fontWeight: FontWeight.w400
           ),
         ),
-        leading: Icon(icon, color: Theme.of(context).primaryColor, size: 26),
+        leading: Icon(icon, color: Theme.of(context).primaryColor, size: 20),
         onTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) => widget,
-            ),
+           name,
 
             // when using BottomNavigation change the Widget to HomePage()
           );
@@ -54,7 +47,7 @@ class DrawerComponent extends StatelessWidget {
                   children: const [
                     Icon(
                       Icons.restaurant,
-                      size: 30,
+                      size: 18,
                       color: Colors.white,
                     ),
                     SizedBox(width: 5),
@@ -62,7 +55,7 @@ class DrawerComponent extends StatelessWidget {
                       'Meal and Recipes',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 26,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -74,7 +67,7 @@ class DrawerComponent extends StatelessWidget {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: Provider.of<ThemeDataa>(context,listen:false).darkTheme
-                    ? const AssetImage('assets/imgs/f.jpg')
+                    ? const AssetImage('assets/imgs/z.jpeg')
                     : const AssetImage('assets/imgs/vv.jpg'),
                 colorFilter: ColorFilter.mode(
                     const Color(0xFF0E3311).withOpacity(0.9),
@@ -85,15 +78,15 @@ class DrawerComponent extends StatelessWidget {
               ),
             ),
           ),
-          // buildListTile(
-          //   'Meals',
-          //   Icons.restaurant,
-          //   NavigationBarComponent(toggleTheme: toggleTheme,),
-          // ),
           buildListTile(
-            'Filters',
+            'Home',
+            Icons.home,
+            MyApp.routeName,
+          ),
+          buildListTile(
+            'Filter Settings',
             Icons.settings,
-            FilterScreen(),
+            FilterScreen.routeName,
           ),
         ],
       ),

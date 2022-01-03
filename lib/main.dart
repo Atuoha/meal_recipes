@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:meal_app/screens/filters.dart';
 import 'package:provider/provider.dart';
 import 'components/navigation_bar.dart';
+import 'models/dummy_data.dart';
+import 'models/meal.dart';
 import 'models/theme.dart';
 import 'screens/cateory_meal.dart';
 import 'screens/favorite_meals.dart';
@@ -18,40 +21,76 @@ void main() => runApp(
 
 // ignore: use_key_in_widget_constructors
 class MyApp extends StatefulWidget {
-
+  static const routeName = '/app';
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
- toggleTheme(value) {
+  Map<String, bool> filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
+
+  List<Meal> availableMeals = Meals;
+
+  void setFilters(Map<String, bool> filtersData) {
     setState(() {
-      Provider.of<ThemeDataa>(context,listen:false).toggleDarkTheme();
+      filters = filtersData;
+ 
+      availableMeals = Meals.where((meal) {
+        if (filters['gluten'] == true && !meal.isGluten) {
+          return false;
+        }
+        if (filters['lactose'] == true && !meal.isLactose) {
+          return false;
+        }
+        if (filters['vegan'] == true && !meal.isVegan) {
+          return false;
+        }
+        if (filters['vegetarian'] == true && !meal.isVegatarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
+  toggleTheme() {
+    setState(() {
+      Provider.of<ThemeDataa>(context, listen: false).toggleDarkTheme();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var theme = Provider.of<ThemeDataa>(context, listen: false).darkTheme;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Provider.of<ThemeDataa>(context, listen: false).darkTheme
-            ? Colors.brown
-            : Colors.purple,
-        primaryColor: Provider.of<ThemeDataa>(context, listen: false).darkTheme
-            ? Colors.brown
-            : Colors.purple,
-        fontFamily: 'Quicksand',
-      ),
-      home: NavigationBarComponent(toggleTheme: toggleTheme,),
+      theme: theme
+          ? ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: Colors.black,
+              ),
+            )
+          : ThemeData(
+              primarySwatch: Colors.purple,
+              primaryColor: Colors.purple,
+              fontFamily: 'Quicksand',
+            ),
+      home: NavigationBarComponent(toggleTheme: toggleTheme),
       routes: {
-        CategoryMeal.routeName: (context) => CategoryMeal(),
+        MyApp.routeName: (context) => MyApp(),
+        CategoryMeal.routeName: (context) => CategoryMeal(availableMeals),
         SingleMeal.routeName: (context) => SingleMeal(),
         FavoriteMeals.routeName: (context) => FavoriteMeals(),
+        FilterScreen.routeName: (context) => FilterScreen(setFilters),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
-          builder: (context) => CategoryMeal(),
+          builder: (context) => CategoryMeal(availableMeals),
         );
       },
     );

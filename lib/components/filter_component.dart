@@ -16,22 +16,20 @@ class ListTileComponent extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return SwitchListTile(
       title: Text(
         title,
         style: const TextStyle(
           fontSize: 19,
         ),
       ),
+      value: isCheck,
+      onChanged: (value) {
+        toggleCheck(value, type);
+      },
       subtitle: Text(subtitle),
-      leading:  Icon(Icons.build_circle, color: Theme.of(context).primaryColor),
-      trailing: Switch(
-          activeTrackColor: Theme.of(context).primaryColor,
-          inactiveThumbColor: Theme.of(context).primaryColor,
-          value: isCheck,
-          onChanged: (value) {
-            toggleCheck(value, type);
-          }),
-    );
+      activeTrackColor: Theme.of(context).primaryColor,
+      inactiveThumbColor: Theme.of(context).primaryColor,
+     );
   }
 }

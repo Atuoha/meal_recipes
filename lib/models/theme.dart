@@ -14,6 +14,5 @@ class ThemeDataa extends ChangeNotifier {
         break;
       default:
     }
-    print(darkTheme);
   }
 }
