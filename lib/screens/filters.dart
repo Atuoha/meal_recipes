@@ -102,10 +102,9 @@ class _FilterScreenState extends State<FilterScreen> {
           children: [
             const Center(
               child: Text(
-                'Adjust your meal selection',
+                'FIlters are only applied when the saved button is clicked',
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
               ),
             ),
