@@ -16,38 +16,35 @@ class CategoryMeal extends StatefulWidget {
 }
 
 class _CategoryMealState extends State<CategoryMeal> {
-    late List<Meal> categoryMeals;
-    String title = '';
-    var isLoaded = false;
+  late List<Meal> categoryMeals;
+  String title = '';
+  var isLoaded = false;
 
-   @override
-    void didChangeDependencies() {
-      if (!isLoaded) {
-        final routeArgs =
-            ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-        title = routeArgs["title"] as String;
-        final id = routeArgs["id"] as String;
-        categoryMeals = widget.availableMeals.where((meal) {
-          return meal.categories.contains(id);
-        }).toList();
-        isLoaded = true;
-      }
-      super.didChangeDependencies();
+  @override
+  void didChangeDependencies() {
+    if (!isLoaded) {
+      final routeArgs =
+          ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      title = routeArgs["title"] as String;
+      final id = routeArgs["id"] as String;
+      categoryMeals = widget.availableMeals.where((meal) {
+        return meal.categories.contains(id);
+      }).toList();
+      isLoaded = true;
     }
+    super.didChangeDependencies();
+  }
 
-
-    void removeItem(id) {
-      setState(() {
-        categoryMeals.removeWhere((meal) => meal.id == id);
-      });
-    }
-
-
+  void removeItem(id) {
+    setState(() {
+      categoryMeals.removeWhere((meal) => meal.id == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_typing_uninitialized_variables
-    
+
     return Scaffold(
       // drawer: DrawerComponent(),
       appBar: AppBar(
@@ -59,35 +56,45 @@ class _CategoryMealState extends State<CategoryMeal> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: categoryMeals.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                SingleMeal.routeName,
-                arguments: {
-                  'id': categoryMeals[index].id,
-                  'title': categoryMeals[index].title,
-                },
-              ).then((value) {
-                if (value != null) {
-                  removeItem(value);
-                }
-              });
-            },
-            child: SingleCatCardItem(
-              title: categoryMeals[index].title,
-              time: '${categoryMeals[index].duration} Min',
-              cost: categoryMeals[index].costText,
-              complexity: categoryMeals[index].complexityText,
-              image: categoryMeals[index].image,
+      body: categoryMeals.isEmpty
+          ? const Center(
+              child: Text(
+                'No meals to dispaly due to filters selected',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: categoryMeals.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      SingleMeal.routeName,
+                      arguments: {
+                        'id': categoryMeals[index].id,
+                        'title': categoryMeals[index].title,
+                      },
+                    ).then((value) {
+                      if (value != null) {
+                        removeItem(value);
+                      }
+                    });
+                  },
+                  child: SingleCatCardItem(
+                    title: categoryMeals[index].title,
+                    time: '${categoryMeals[index].duration} Min',
+                    cost: categoryMeals[index].costText,
+                    complexity: categoryMeals[index].complexityText,
+                    image: categoryMeals[index].image,
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

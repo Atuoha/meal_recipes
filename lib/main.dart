@@ -35,11 +35,13 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> availableMeals = Meals;
+  List<Meal> availableFavoriteMeals = favoriteMeals;
 
   void setFilters(Map<String, bool> filtersData) {
     setState(() {
       filters = filtersData;
- 
+
+      // available meals based on filters selected
       availableMeals = Meals.where((meal) {
         if (filters['gluten'] == true && !meal.isGluten) {
           return false;
@@ -55,7 +57,42 @@ class _MyAppState extends State<MyApp> {
         }
         return true;
       }).toList();
+
+      // available favorite meals based on filters selected
+      availableFavoriteMeals = favoriteMeals.where((meal) {
+        if (filters['gluten'] == true && !meal.isGluten) {
+          return false;
+        }
+        if (filters['lactose'] == true && !meal.isLactose) {
+          return false;
+        }
+        if (filters['vegan'] == true && !meal.isVegan) {
+          return false;
+        }
+        if (filters['vegetarian'] == true && !meal.isVegatarian) {
+          return false;
+        }
+        return true;
+      }).toList();
     });
+  }
+
+  void toggleFavoriteMeal(Meal meal, bool isFavorite) {
+    switch (isFavorite) {
+      case true:
+        setState(() {
+          availableFavoriteMeals.remove(meal);
+        });
+        break;
+      case false:
+        setState(() {
+          availableFavoriteMeals.add(meal);
+        });
+        break;
+
+      default:
+
+    }
   }
 
   toggleTheme() {
@@ -80,12 +117,14 @@ class _MyAppState extends State<MyApp> {
               primaryColor: Colors.purple,
               fontFamily: 'Quicksand',
             ),
-      home: NavigationBarComponent(toggleTheme: toggleTheme),
+      home: NavigationBarComponent(
+          toggleTheme: toggleTheme, favoritemealList: availableFavoriteMeals),
       routes: {
         MyApp.routeName: (context) => MyApp(),
         CategoryMeal.routeName: (context) => CategoryMeal(availableMeals),
-        SingleMeal.routeName: (context) => SingleMeal(),
-        FavoriteMeals.routeName: (context) => FavoriteMeals(),
+        SingleMeal.routeName: (context) => SingleMeal(toggleFavoriteMeal,availableFavoriteMeals),
+        FavoriteMeals.routeName: (context) =>
+            FavoriteMeals(availableFavoriteMeals),
         FilterScreen.routeName: (context) => FilterScreen(setFilters),
       },
       onUnknownRoute: (settings) {

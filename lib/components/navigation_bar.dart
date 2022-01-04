@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:meal_app/models/meal.dart';
 import 'package:meal_app/models/theme.dart';
 import 'package:meal_app/screens/favorite_meals.dart';
 import 'package:meal_app/screens/filters.dart';
@@ -8,11 +9,12 @@ import 'package:meal_app/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'drawer_component.dart';
 
-// ignore: use_key_in_widget_constructors
+// ignore: use_key_in_widget_constructors, must_be_immutable
 class NavigationBarComponent extends StatelessWidget {
   final void Function() toggleTheme;
+   List<Meal> favoritemealList;
   // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-  NavigationBarComponent({required this.toggleTheme});
+  NavigationBarComponent({required this.toggleTheme, required this.favoritemealList});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class NavigationBarComponent extends StatelessWidget {
         body: TabBarView(
           children: [
             const HomePage(),
-            FavoriteMeals(),
+            FavoriteMeals(favoritemealList),
           ],
         ),
       ),

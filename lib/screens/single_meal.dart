@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:meal_app/models/dummy_data.dart';
 import 'package:meal_app/models/meal.dart';
 
-// ignore: use_key_in_widget_constructors
+// ignore: use_key_in_widget_constructors, must_be_immutable
 class SingleMeal extends StatefulWidget {
   static const routeName = '/single-meal';
-
+  List<Meal> availableFavoriteMeal;
+  void Function(Meal, bool) toggleFavoriteMeal;
+  // ignore: use_key_in_widget_constructors
+  SingleMeal(this.toggleFavoriteMeal,this.availableFavoriteMeal);
   @override
   State<SingleMeal> createState() => _SingleMealState();
 }
@@ -23,7 +26,7 @@ class _SingleMealState extends State<SingleMeal> {
     });
 
     final isFavorite =
-        favoriteMeals.any((favMeal) => favMeal.id == id) ? true : false;
+        widget.availableFavoriteMeal.any((favMeal) => favMeal.id == id) ? true : false;
 
     showImageModal(context) {
       showDialog(
@@ -51,22 +54,22 @@ class _SingleMealState extends State<SingleMeal> {
       );
     }
 
-    void toggleFavoriteMeal(Meal meal) {
-      switch (isFavorite) {
-        case true:
-          setState(() {
-            favoriteMeals.remove(meal);
-          });
-          break;
-        case false:
-          setState(() {
-            favoriteMeals.add(meal);
-          });
-          break;
+    // void toggleFavoriteMeal(Meal meal) {
+    //   switch (isFavorite) {
+    //     case true:
+    //       setState(() {
+    //         favoriteMeals.remove(meal);
+    //       });
+    //       break;
+    //     case false:
+    //       setState(() {
+    //         favoriteMeals.add(meal);
+    //       });
+    //       break;
 
-        default:
-      }
-    }
+    //     default:
+    //   }
+    // }
 
     Widget buildContainer(Widget child) {
       return Container(
@@ -90,7 +93,7 @@ class _SingleMealState extends State<SingleMeal> {
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(Icons.delete_forever),
           onPressed: () {
             Navigator.of(context).pop(id);
@@ -102,7 +105,8 @@ class _SingleMealState extends State<SingleMeal> {
             icon: isFavorite
                 ? const Icon(Icons.star, color: Colors.orange)
                 : const Icon(Icons.star_outline_outlined, color: Colors.white),
-            onPressed: () => toggleFavoriteMeal(selectedSingleMeal),
+            onPressed: () =>
+                widget.toggleFavoriteMeal(selectedSingleMeal, isFavorite),
           ),
         ],
       ),
