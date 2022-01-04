@@ -27,6 +27,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<Meal> availableMeals = Meals;
+  List<Meal> availableFavoriteMeals = favoriteMeals;
+
   Map<String, bool> filters = {
     'gluten': false,
     'lactose': false,
@@ -34,8 +37,7 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
 
-  List<Meal> availableMeals = Meals;
-  List<Meal> availableFavoriteMeals = favoriteMeals;
+
 
   void setFilters(Map<String, bool> filtersData) {
     setState(() {
@@ -89,9 +91,7 @@ class _MyAppState extends State<MyApp> {
           availableFavoriteMeals.add(meal);
         });
         break;
-
       default:
-
     }
   }
 
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
               fontFamily: 'Quicksand',
             ),
       home: NavigationBarComponent(
-          toggleTheme: toggleTheme, favoritemealList: availableFavoriteMeals),
+          toggleTheme: toggleTheme, favoritemealList: availableFavoriteMeals,),
       routes: {
         MyApp.routeName: (context) => MyApp(),
         CategoryMeal.routeName: (context) => CategoryMeal(availableMeals),

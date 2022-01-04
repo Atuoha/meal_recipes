@@ -8,7 +8,7 @@ class SingleMeal extends StatefulWidget {
   List<Meal> availableFavoriteMeal;
   void Function(Meal, bool) toggleFavoriteMeal;
   // ignore: use_key_in_widget_constructors
-  SingleMeal(this.toggleFavoriteMeal,this.availableFavoriteMeal);
+  SingleMeal(this.toggleFavoriteMeal, this.availableFavoriteMeal);
   @override
   State<SingleMeal> createState() => _SingleMealState();
 }
@@ -26,7 +26,7 @@ class _SingleMealState extends State<SingleMeal> {
     });
 
     final isFavorite =
-        widget.availableFavoriteMeal.any((favMeal) => favMeal.id == id) ? true : false;
+        widget.availableFavoriteMeal.any((favMeal) => favMeal.id == id);
 
     showImageModal(context) {
       showDialog(
