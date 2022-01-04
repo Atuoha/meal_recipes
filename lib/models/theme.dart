@@ -15,4 +15,9 @@ class ThemeDataa extends ChangeNotifier {
       default:
     }
   }
+
+  bool isVeganCheck = false;
+  bool isLactoseCheck = false;
+  bool isVegetarianCheck = false;
+  bool isGlutenCheck = false;
 }
